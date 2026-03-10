@@ -6,13 +6,13 @@ source.dir = .
 source.include_exts = cpp,h,otf,ttf
 version = 1.0
 
-# Только SDL2 библиотеки (БЕЗ python3!)
-requirements = sdl2,sdl2_ttf
+# hostpython3 нужен для работы инструментов сборки внутри сервера
+requirements = sdl2,sdl2_ttf,hostpython3
 
 orientation = landscape
 fullscreen = 1
 
-# Жестко фиксируем версии, чтобы не качались глючные беты
+# Стабильные версии инструментов
 android.api = 33
 android.minapi = 21
 android.sdk = 33
@@ -20,11 +20,9 @@ android.build_tools_version = 33.0.2
 android.ndk = 25b
 android.archs = arm64-v8a
 
-# Разрешения
-android.permissions = INTERNET
-
-# Важно для чистого C++ проекта
+# Отключаем Python-специфичные штуки для чистого C++
 p4a.setup_py = false
+p4a.bootstrap = sdl2
 
 [buildozer]
 log_level = 2
