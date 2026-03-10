@@ -7,23 +7,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y python3-pip build-essential git python3 python3-dev ffmpeg libsdl2-dev libsdl2-ttf-dev zlib1g-dev cmake
+          sudo apt install -y build-essential git python3 python3-pip python3-dev zip unzip zlib1g-dev libffi-dev libssl-dev libncurses5-dev libtinfo5 cmake
           pip3 install --user --upgrade buildozer cython virtualenv
-
-      - name: Accept Android Licenses
-        run: |
-          mkdir -p ~/.android
-          touch ~/.android/repositories.cfg
-          # Эта магия ниже нажимает "Yes" на все лицензии Google
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          # Мы заставляем билд использовать стабильную версию инструментов
+          # Принудительно принимаем лицензии перед сборкой
+          yes | buildozer android p4a -- sdkmanager --licenses || true
+          # Запуск основной сборки
           buildozer -v android debug
         
       - name: Upload APK
