@@ -16,16 +16,16 @@ jobs:
       - name: Install System Dependencies
         run: |
           sudo apt update
-          # Добавлены критически важные: libtool, autoconf, automake, pkg-config
-          sudo apt install -y build-essential git python3 python3-pip python3-dev zip unzip zlib1g-dev libffi-dev libssl-dev cmake libtool autoconf automake pkg-config
+          # Добавляем расширенный набор для сборки нативных библиотек
+          sudo apt install -y build-essential git python3 python3-pip python3-dev zip unzip zlib1g-dev libffi-dev libssl-dev cmake libtool autoconf automake pkg-config libltdl-dev m4
           pip3 install --user --upgrade buildozer cython virtualenv
 
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          # Авто-принятие лицензий
+          # Принимаем лицензии
           yes | buildozer android p4a -- sdkmanager --licenses || true
-          # Погнали собирать!
+          # Принудительная очистка и сборка
           buildozer -v android debug
         
       - name: Upload APK
