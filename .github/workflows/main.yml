@@ -16,15 +16,15 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y build-essential git python3 python3-pip python3-dev zip unzip zlib1g-dev libffi-dev libssl-dev libncurses5-dev libtinfo5 cmake
+          sudo apt install -y build-essential git python3 python3-pip python3-dev zip unzip zlib1g-dev libffi-dev libssl-dev cmake libncurses5
           pip3 install --user --upgrade buildozer cython virtualenv
 
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          # Принудительно принимаем лицензии перед сборкой
+          # Принимаем лицензии
           yes | buildozer android p4a -- sdkmanager --licenses || true
-          # Запуск основной сборки
+          # Запуск сборки
           buildozer -v android debug
         
       - name: Upload APK
