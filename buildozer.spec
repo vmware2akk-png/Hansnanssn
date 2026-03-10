@@ -6,13 +6,13 @@ source.dir = .
 source.include_exts = cpp,h,otf,ttf
 version = 1.0
 
-# Только SDL2 и шрифт, без питона
+# Только SDL2 библиотеки (БЕЗ python3!)
 requirements = sdl2,sdl2_ttf
 
 orientation = landscape
 fullscreen = 1
 
-# Фикс версий (уходим от 37-rc2)
+# Жестко фиксируем версии, чтобы не качались глючные беты
 android.api = 33
 android.minapi = 21
 android.sdk = 33
@@ -23,7 +23,7 @@ android.archs = arm64-v8a
 # Разрешения
 android.permissions = INTERNET
 
-# Указываем, что проект на C++
+# Важно для чистого C++ проекта
 p4a.setup_py = false
 
 [buildozer]
