@@ -6,13 +6,13 @@ source.dir = .
 source.include_exts = cpp,h,otf,ttf
 version = 1.0
 
-# ОСТАВЛЯЕМ ТОЛЬКО ЭТО (никаких hostpython3 и ffi!)
+# Оставляем только графику. НИКАКИХ jnius, python или hostpython
 requirements = sdl2,sdl2_ttf
 
 orientation = landscape
 fullscreen = 1
 
-# Стабильные версии инструментов для Redmi Pad
+# Настройки для Redmi Pad
 android.api = 33
 android.minapi = 21
 android.sdk = 33
@@ -20,10 +20,12 @@ android.build_tools_version = 33.0.2
 android.ndk = 25b
 android.archs = arm64-v8a
 
-# Отключаем Python-логику, включаем SDL2-старт
+# КРИТИЧЕСКИ ВАЖНО ДЛЯ C++
 p4a.setup_py = false
 p4a.bootstrap = sdl2
+# Запрещаем искать зависимости питона
+android.meta_data = 
 
 [buildozer]
 log_level = 2
-warn_on_root = 1 
+warn_on_root = 1
